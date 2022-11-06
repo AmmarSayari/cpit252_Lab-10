@@ -2,7 +2,7 @@ package edu.kau.fcit.cpit252.transactions;
 
 import java.util.Scanner;
 
-public class Transfer {
+public class Transfer extends Transaction {
 
     private String accountNumber;
     private double amount;

@@ -2,7 +2,7 @@ package edu.kau.fcit.cpit252.transactions;
 
 import java.util.Scanner;
 
-public class Balance {
+public class Balance extends Transaction{
     private double balance;
 
     public Balance(double balance) {

@@ -17,32 +17,34 @@ public abstract class Transaction {
     private final PassiveExpiringMap<String, String> cacheRegistry = new PassiveExpiringMap(TimeUnit.MINUTES.toMillis(timeToLiveMinutes));
 
     
-    public  boolean executeProtectedTransaction(User user) {
+    public final boolean executeProtectedTransaction(User user) {
         // 1. send a one-time-password (OTP)
-        
+        sendOTP(user.getEmail());
         // 2. validate the OTP
-        
+        if(validateOTP(user.getEmail())) {
             // 3. Show a confirmation dialog
-            
+            if (showDialog()) {
                 // 4. Perform/execute the transaction
-                
+                boolean result = perform(user);
                 // 5. Show the close dialog
-                
+                closeDialog();
                 // 6. Return the status of executing the transaction
-                
-            
-
+                return result;
+            }
+        }
+        return false;
     }
 
     // Template method for executed non-protected transactions
     public  boolean executeTransaction(User user) {
         // 1. Show a confirmation dialog
-
+        showDialog();
             // 2. Perform/execute the transaction
-            
+        boolean result = perform(user);
             // 3. Show the close dialog
-
+            closeDialog();
             // 4. Return the status of executing the transaction
+        return result;
     }
 
     // Hooks
